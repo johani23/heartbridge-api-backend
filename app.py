@@ -13,9 +13,9 @@ def analyze():
     data = request.get_json()
     message = data.get("message", "")
     return jsonify({
-        "input": message,
-        "result": "🔍 تحليل تجريبي: محتوى الرسالة تم استقباله بنجاح."
-    })
+    "input": message,
+    "analysis": "🧠 تحليل تجريبي: محتوى الرسالة تم استقباله بنجاح."
+})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
