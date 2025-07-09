@@ -1,1 +1,6 @@
+Flask
+Flask-Cors
+openai
+PyYAML
+gunicorn
 # Contents of requirements.txt
