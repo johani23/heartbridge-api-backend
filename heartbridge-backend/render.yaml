@@ -2,6 +2,9 @@ services:
   - type: web
     name: heartbridge-backend
     env: python
-    
-buildCommand: pip install -r heartbridge-backend/requirements.txt
-startCommand: python heartbridge-backend/app.py
+    buildCommand: ""
+    startCommand: python app.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+    plan: free
