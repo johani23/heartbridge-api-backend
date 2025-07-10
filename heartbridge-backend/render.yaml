@@ -2,6 +2,6 @@ services:
   - type: web
     name: heartbridge-backend
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -b 0.0.0.0:$PORT app:app
-# Contents of render.yaml
+    
+buildCommand: pip install -r heartbridge-backend/requirements.txt
+startCommand: python heartbridge-backend/app.py
