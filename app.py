@@ -41,15 +41,19 @@ def handle_dynamic_recommendation():
         output = generate_recommendation(payload)
         return jsonify(output)
     except Exception as e:
+        print(f"[ERROR in /dynamic-recommendation]: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/ai-analyze', methods=['POST'])
+@app.route('/analyze', methods=['POST'])  # alias to match frontend route
 def ai_analyze():
     try:
         data = request.json
         prompt = data.get("prompt", "")
         if not prompt:
             return jsonify({"error": "Missing prompt"}), 400
+
+        print(f"[DEBUG] Received prompt: {prompt}")
 
         response = openai.ChatCompletion.create(
             model="gpt-4",
@@ -64,6 +68,7 @@ def ai_analyze():
         return jsonify({"response": result})
 
     except Exception as e:
+        print(f"[ERROR in /ai-analyze]: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
