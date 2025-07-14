@@ -7,11 +7,10 @@ from flask_cors import CORS
 from pairwise_model_selector import select_pairwise_model
 from dynamic_recommendation import generate_recommendation
 
-# إعداد Flask
 app = Flask(__name__)
 CORS(app)
 
-# مفتاح OpenAI من البيئة
+# OpenAI Key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route('/', methods=['GET'])
@@ -45,7 +44,7 @@ def handle_dynamic_recommendation():
         return jsonify({"error": str(e)}), 500
 
 @app.route('/ai-analyze', methods=['POST'])
-@app.route('/analyze', methods=['POST'])  # alias to match frontend route
+@app.route('/analyze', methods=['POST'])  # alias
 def ai_analyze():
     try:
         data = request.json
@@ -72,5 +71,4 @@ def ai_analyze():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=8000, debug=True)
