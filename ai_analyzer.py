@@ -1,3 +1,9 @@
+from flask import Flask, request, jsonify
+import os
+import openai
+
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 @app.route('/ai-analyze', methods=['POST'])
 @app.route('/analyze', methods=['POST'])  # alias to match frontend route
 def ai_analyze():
@@ -9,7 +15,7 @@ def ai_analyze():
 
         print(f"[DEBUG] Received prompt: {prompt}")
 
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "أنت مساعد نفسي خبير في العلاقات، تحلل المشاعر وتقدم توصيات واقعية."},
@@ -24,5 +30,5 @@ def ai_analyze():
     except Exception as e:
         import traceback
         print("[ERROR in /ai-analyze]")
-        traceback.print_exc()  # يطبع الخطأ كاملًا في اللوق داخل Render
+        traceback.print_exc()
         return jsonify({"error": str(e)}), 500
