@@ -1,16 +1,21 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
+from dotenv import load_dotenv
 import yaml
 import os
 import openai
-from flask_cors import CORS
 
 from pairwise_model_selector import select_pairwise_model
 from dynamic_recommendation import generate_recommendation
 
+# ✅ تحميل متغيرات البيئة من ملف .env
+load_dotenv()
+
+# إعداد التطبيق
 app = Flask(__name__)
 CORS(app)
 
-# OpenAI Key
+# ✅ مفتاح OpenAI من .env
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route('/', methods=['GET'])
