@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from openai import OpenAI
 import os
-import openai
 
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+app = Flask(__name__)
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.route('/ai-analyze', methods=['POST'])
 @app.route('/analyze', methods=['POST'])  # alias to match frontend route
