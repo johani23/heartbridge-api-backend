@@ -3,7 +3,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import yaml
 import os
-import openai
+from openai import OpenAI  # ✅ التحديث هنا
 
 from pairwise_model_selector import select_pairwise_model
 from dynamic_recommendation import generate_recommendation
@@ -15,8 +15,8 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# ✅ مفتاح OpenAI من .env
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# ✅ تهيئة عميل OpenAI الجديد
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @app.route('/', methods=['GET'])
 def home():
@@ -59,7 +59,8 @@ def ai_analyze():
 
         print(f"[DEBUG] Received prompt: {prompt}")
 
-        response = openai.ChatCompletion.create(
+        # ✅ استخدام واجهة OpenAI الجديدة
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "أنت مساعد نفسي خبير في العلاقات، تحلل المشاعر وتقدم توصيات واقعية."},
